@@ -1,0 +1,30 @@
+Prije svega instalirati react
+otvoriti cdm kao administrator te kucati komandu
+npm i react
+
+nakon toga otvoriti folder gdje želimo smjestiti react frontend aplikaciju
+
+create-react naziv-aplikacije(ujedno i foldera) --template (pa neki template) typescript
+
+nakon instalacije odnosno kreiranja aplikacije, uraditi malo reorganizaciju foldera i fajlova,
+te instalirati bootstrap
+
+npm i bootstrap react-bootstrap (yarn ne znam što kod mene nije radilo - nešto cert)
+
+poslije toga instalirati jquery popper.js
+
+npm i jquery popper.js
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'jquery/dist/jquery.js';
+import 'popper.js/dist/popper.js';
+import 'bootstrap/dist/js/bootstrap.min.js'
+
+instalacija ikonica
+
+npm i @fortawesome/fontawesome-svg-core 
+      @fortawesome/free-solid-svg-icons 
+      @fortawesome/react-fontawesome
+      @fortawesome/fontawesome-free
+
+import '@fortawesome/fontawesome-free/css/fontawesome.css';

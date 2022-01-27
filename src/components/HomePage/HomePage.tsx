@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function HomePage() {
   return (
     <Container>
-    <Card>
-      <Card.Body>
+    <Card className="text-white bg-dark">
+      <Card.Header>
         <Card.Title>
         <FontAwesomeIcon icon={faHome}/> Home
         </Card.Title>
+      </Card.Header>
+      <Card.Body>
         <Card.Text>
           Naslovna stranica
         </Card.Text>

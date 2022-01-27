@@ -7,12 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default class ContactPage extends React.Component{
   render() {
      return (
-    <Container>
-      <Card>
-        <Card.Body>
+    <Container className='container'>
+      <Card className="text-white bg-success">
+        <Card.Header>
           <Card.Title>
             <FontAwesomeIcon icon={faPhone}/> Contact details
           </Card.Title>
+        </Card.Header>
+        <Card.Body>
           <Card.Text>
             Kontakt podaci
           </Card.Text>

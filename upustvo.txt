@@ -1,6 +1,6 @@
 Prije svega instalirati react
 otvoriti cdm kao administrator te kucati komandu
-npm i react
+npm i create-react-app -g
 
 nakon toga otvoriti folder gdje želimo smjestiti react frontend aplikaciju
 

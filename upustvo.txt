@@ -25,3 +25,7 @@ instalacija ikonica
 npm i @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/fontawesome-free
 
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
+
+za rutiranje potrebno je instalirati novi modul
+
+npm i react-router-dom@5.2.0 @types/react-router-dom@5.1.5

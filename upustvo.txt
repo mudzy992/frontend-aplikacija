@@ -18,13 +18,10 @@ npm i jquery popper.js
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery/dist/jquery.js';
 import 'popper.js/dist/popper.js';
-import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 instalacija ikonica
 
-npm i @fortawesome/fontawesome-svg-core 
-      @fortawesome/free-solid-svg-icons 
-      @fortawesome/react-fontawesome
-      @fortawesome/fontawesome-free
+npm i @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/fontawesome-free
 
 import '@fortawesome/fontawesome-free/css/fontawesome.css';

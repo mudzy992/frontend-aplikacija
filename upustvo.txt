@@ -29,3 +29,6 @@ import '@fortawesome/fontawesome-free/css/fontawesome.css';
 za rutiranje potrebno je instalirati novi modul
 
 npm i react-router-dom@5.2.0 @types/react-router-dom@5.1.5
+
+Upućivanje zagthe
+npm i axios

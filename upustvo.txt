@@ -31,4 +31,4 @@ za rutiranje potrebno je instalirati novi modul
 npm i react-router-dom@5.2.0 @types/react-router-dom@5.1.5
 
 Upućivanje zagthe
-npm i axios
+npm i axios@0.19.2

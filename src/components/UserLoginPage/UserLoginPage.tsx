@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Card, Form, Button, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import api, { ApiResponse, saveToken, saveRefreshToken } from '../../API/api'
 import { Redirect } from 'react-router-dom';
 import './UserLoginPage.css';
@@ -17,116 +17,124 @@ export default class UserLoginPage extends React.Component {
     state: UserLoginPageState;
 
     constructor(props: Readonly<{}>) {
-        super(props);
+      super(props);
 
-        this.state = {
-            email: '',
-            password: '',
-            errorMessage: '',
-            isLoggedIn: false,
-        }
-    }
+      this.state = {
+          email: '',
+          password: '',
+          errorMessage: '',
+          isLoggedIn: false,
+      }
+  }
 
     private formInputChanged(event: React.ChangeEvent<HTMLInputElement>) {
-        const newState = Object.assign(this.state, {
-            [ event.target.id ]: event.target.value,
-        });
+      const newState = Object.assign(this.state, {
+          [ event.target.id ]: event.target.value,
+      });
 
-        this.setState(newState);
+      this.setState(newState);
     }
 
     private setErrorMessage(message: string) {
-        const newState = Object.assign(this.state, {
-            errorMessage: message,
-        });
+      const newState = Object.assign(this.state, {
+          errorMessage: message,
+      });
 
-        this.setState(newState);
-    }
+      this.setState(newState);
+    } 
 
     private setLogginState(isLoggedIn: boolean) {
-        const newState = Object.assign(this.state, {
-            isLoggedIn: isLoggedIn,
-        });
+      const newState = Object.assign(this.state, {
+          isLoggedIn: isLoggedIn,
+      });
 
-        this.setState(newState);
+      this.setState(newState);
     }
 
     private doLogin() {
-        api(
-            'auth/user/login/',
-            'post',
-            {
-                email: this.state.email,
-                password: this.state.password,
-            }
-        )
-        .then((res: ApiResponse) => {
-            if (res.status === 'error') {
-                this.setErrorMessage('System error... Try again!');
-                return;
-            }
+      api(
+          'auth/user/login',
+          'post',
+          {
+              email: this.state.email,
+              password: this.state.password,
+          }
+      )
+      .then((res: ApiResponse) => {
+          if (res.status === 'error') {
+              this.setErrorMessage('System error... Try again!');
 
-            if (res.status === 'ok') {
-                if ( res.data.statusCode !== undefined ) {
-                    let message = '';
+              return;
+          }
 
-                    switch (res.data.statusCode) {
-                        case -3001: message = 'Unknown e-mail!'; break;
-                        case -3002: message = 'Bad password!'; break;
-                    }
+          if (res.status === 'ok') {
+              if ( res.data.statusCode !== undefined ) {
+                  let message = '';
 
-                    this.setErrorMessage(message);
+                  switch (res.data.statusCode) {
+                      case -3001: message = 'Unkwnon e-mail!'; break;
+                      case -3002: message = 'Bad password!'; break;
+                  }
 
-                    return;
-                }
+                  this.setErrorMessage(message);
 
-                saveToken(res.data.token);
-                saveRefreshToken(res.data.refreshToken);
+                  return;
+              }
 
-                this.setLogginState(true);
-            }
-        });
-    }
+              saveToken(res.data.token);
+              saveRefreshToken(res.data.refreshToken);
+
+              this.setLogginState(true);
+          }
+      });
+  }
 
   render() {
-    if(this.state.isLoggedIn === true){
-      return (<Redirect to='/' />);
+    if (this.state.isLoggedIn === true) {
+        return (
+            <Redirect to="/" />
+        );
     }
-     return (
-       <Container>
-         <Col md={ { span: 6, offset: 3}}>
-          <Card>
-              <Card.Body>
-                <Card.Title>
-                  <FontAwesomeIcon icon={faSignInAlt} /> User Login
-                </Card.Title>
-                  <Form>
-                    <Form.Group>
-                      <Form.Label htmlFor="email">E-Mail</Form.Label>
-                      <Form.Control type="email" id="email" 
-                                    value={ this.state.email } 
-                                    onChange={ event => this.formInputChanged(event as any) } />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label htmlFor="password">Password</Form.Label>
-                      <Form.Control type="password" id="password" 
-                                    value={ this.state.password } 
-                                    onChange={ event => this.formInputChanged(event as any) } />
-                    </Form.Group>
-                    <Form.Group>
-                      <Button variant="primary"
-                              onClick={ () => this.doLogin() } >
-                        Log in</Button>
-                    </Form.Group>
-                  </Form>
-                  <Alert variant="danger"
-                         className= { this.state.errorMessage ? '' : 'd-none'} >
-                    { this.state.errorMessage }
-                  </Alert>
-              </Card.Body>
-          </Card>
-         </Col>
-       </Container>
-    ); 
-  }
+
+    return (
+        <Container>
+            <Col md={ { span: 6, offset: 3 } }>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>
+                            <FontAwesomeIcon icon={ faSignInAlt } /> User Login
+                        </Card.Title>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label htmlFor="email">E-mail:</Form.Label>
+                                <Form.Control type="email" id="email"
+                                                value={ this.state.email }
+                                                onChange={ event => this.formInputChanged(event as any) } />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label htmlFor="password">Password:</Form.Label>
+                                <Form.Control type="password" id="password"
+                                                value={ this.state.password }
+                                                onChange={ event => this.formInputChanged(event as any) } />
+                            </Form.Group>
+                            <Form.Group>
+                                <Button variant="primary"
+                                        style={{marginTop:15}}
+                                        onClick={ () => this.doLogin() }>
+                                    Log in
+                                </Button>
+                            </Form.Group>
+                        </Form>
+                        <Alert variant="danger"
+                               style={{marginTop:15}}
+                               className={ this.state.errorMessage ? '' : 'd-none' }>
+                           <FontAwesomeIcon icon={ faExclamationTriangle } />  { this.state.errorMessage }
+                        </Alert>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Container>
+    );
 }
+}
+

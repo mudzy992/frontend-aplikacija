@@ -53,7 +53,7 @@ export default class UserLoginPage extends React.Component {
 
     private doLogin() {
         api(
-            'auth/user/login',
+            'auth/user/login/',
             'post',
             {
                 email: this.state.email,
@@ -63,7 +63,6 @@ export default class UserLoginPage extends React.Component {
         .then((res: ApiResponse) => {
             if (res.status === 'error') {
                 this.setErrorMessage('System error... Try again!');
-
                 return;
             }
 
@@ -72,7 +71,7 @@ export default class UserLoginPage extends React.Component {
                     let message = '';
 
                     switch (res.data.statusCode) {
-                        case -3001: message = 'Unkwnon e-mail!'; break;
+                        case -3001: message = 'Unknown e-mail!'; break;
                         case -3002: message = 'Bad password!'; break;
                     }
 
@@ -91,58 +90,43 @@ export default class UserLoginPage extends React.Component {
 
   render() {
     if(this.state.isLoggedIn === true){
-      return <Redirect to='/' />
+      return (<Redirect to='/' />);
     }
      return (
-              <Container>
-                <Col md = {{span: 6, offset: 3}}>
-                <Card className="text-white bg-info">
-                  <Card.Header>
-                  <Card.Title>
-                      <FontAwesomeIcon icon={faSignInAlt}/> Korisnička prijava
-                    </Card.Title>
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      <Form className="needs-validation">
-                        <Form.Group>
-                            <Form.Control 
-                            className='input form-control'
-                            type='email' 
-                            id="email" 
-                            value={ this.state.email }
-                            onChange={ event => this.formInputChanged(event as any)}
-
-                            aria-describedby="emailHelp" 
-                            placeholder="E-mail" required />
-                        </Form.Group>
-                        <Form.Group className='input-group'>
-                            <Form.Control 
-                            type="password" 
-                            id="password" 
-                            value={ this.state.password }
-                            onChange={event => this.formInputChanged(event as any)}
-                            className='input form-control' 
-                            placeholder="Lozinka" required/>
-                        </Form.Group>
-                        <Form.Group>
-                          <Button 
-                            className='btn btn-secondary' 
-                            onClick={() => this.doLogin()}
-                            type="submit">Prijavi se
-                          </Button>
-                        </Form.Group>              
-                      </Form>
-                    </Card.Text>
-                    <Alert 
-                    variant='danger'
-                    className={this.state.errorMessage ? '' : 'd-none'}>
-                      {this.state.errorMessage}
-                    </Alert>
-                  </Card.Body>
-                </Card>
-                </Col>
-              </Container>
-  ); 
+       <Container>
+         <Col md={ { span: 6, offset: 3}}>
+          <Card>
+              <Card.Body>
+                <Card.Title>
+                  <FontAwesomeIcon icon={faSignInAlt} /> User Login
+                </Card.Title>
+                  <Form>
+                    <Form.Group>
+                      <Form.Label htmlFor="email">E-Mail</Form.Label>
+                      <Form.Control type="email" id="email" 
+                                    value={ this.state.email } 
+                                    onChange={ event => this.formInputChanged(event as any) } />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label htmlFor="password">Password</Form.Label>
+                      <Form.Control type="password" id="password" 
+                                    value={ this.state.password } 
+                                    onChange={ event => this.formInputChanged(event as any) } />
+                    </Form.Group>
+                    <Form.Group>
+                      <Button variant="primary"
+                              onClick={ () => this.doLogin() } >
+                        Log in</Button>
+                    </Form.Group>
+                  </Form>
+                  <Alert variant="danger"
+                         className= { this.state.errorMessage ? '' : 'd-none'} >
+                    { this.state.errorMessage }
+                  </Alert>
+              </Card.Body>
+          </Card>
+         </Col>
+       </Container>
+    ); 
   }
 }

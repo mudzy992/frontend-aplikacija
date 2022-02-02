@@ -1,5 +1,7 @@
+import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Container, Nav } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { HashRouter, Link } from "react-router-dom";
 
 export class MainMenuItem {
@@ -37,13 +39,19 @@ export class MainMenu extends React.Component<MainMenuProperties> {
     
     render() {
         return ( 
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-            <Nav variant="tabs">
+            <Navbar.Brand href="/"> <FontAwesomeIcon icon={ faTruckLoading } /> Aplikacija</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto">
                 <HashRouter>
                 {this.state.items.map(this.makeNavLink)}
                 </HashRouter>
-            </Nav>
+                </Nav>
+            </Navbar.Collapse>
             </Container>
+            </Navbar>
         );
     }
     /* a može i ova varijanta */

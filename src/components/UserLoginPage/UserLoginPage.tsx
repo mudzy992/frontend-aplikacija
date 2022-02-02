@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Card, Form, Button, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faDiagnoses, faExclamationTriangle, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import api, { ApiResponse, saveToken, saveRefreshToken } from '../../API/api'
 import { Redirect } from 'react-router-dom';
 import './UserLoginPage.css';

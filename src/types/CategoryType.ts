@@ -8,5 +8,6 @@ export default class CategoryType {
     /* ovaj type ne mora da preslikava niti bazu podataka, niti entitet i DTO u backend-u */
     categoryId?: number;
     name?: string;
+    image?:string;
     items?: ArticleType[]
 }

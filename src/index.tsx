@@ -20,10 +20,6 @@ const menuItems = [
   new MainMenuItem("Contact", "/contact/"),
   new MainMenuItem("Log in", "/user/login/"),
   new MainMenuItem("Register", "/user/register/"),
-
-  new MainMenuItem("Cat 12", "/category/1/"),
-  new MainMenuItem("Cat 2", "/category/2/"),
-  new MainMenuItem("Cat 3", "/category/3/"),
 ]
 
 ReactDOM.render( 

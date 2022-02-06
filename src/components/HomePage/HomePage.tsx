@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CategoryType from '../../types/CategoryType';
 import { Link, Redirect } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api'
+import { ApiConfig } from '../../config/api.config';
 
 
 /* Pravimo state onoga što zahtjevamo od našeg backend-a */
@@ -131,7 +132,8 @@ class HomePage extends React.Component {
             </Card.Title>
           </Card.Header>
             <Card.Body>
-            <Card.Img variant="top" src={`${category.image}`} />
+              Ovjde će ići slika zvao se ja mudzy ili ne
+            {/* <Card.Img variant="top" src={ApiConfig.PHOTO_PATH + `${category.image}`} /> */}
             </Card.Body>
             <Card.Footer>
              <small><Link to={`/category/${category.categoryId}`}

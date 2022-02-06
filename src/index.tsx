@@ -14,7 +14,6 @@ import ContactPage from './components/ContactPage/ContactPage';
 import UserLoginPage from './components/UserLoginPage/UserLoginPage';
 import CategoryPage from './components/CategoryPage/CategoryPage';
 import { UserRegistrationPage } from './components/UserRegistrationPage/UserRegistrationPage';
-import { Navbar } from 'react-bootstrap';
 
 const menuItems = [
   new MainMenuItem("Home", "/"),
@@ -26,13 +25,14 @@ const menuItems = [
   new MainMenuItem("Cat 2", "/category/2/"),
   new MainMenuItem("Cat 3", "/category/3/"),
 ]
-ReactDOM.render(
+
+ReactDOM.render( 
   <React.StrictMode>
     <MainMenu items= {menuItems} />
     {/* mehanizam rutiranja */}
     <HashRouter>
       <Switch>
-        <Route exact path="/" component={ HomePage } />
+        <Route exact path="/" component={ HomePage }  />
         <Route path="/contact" component={ ContactPage } />
         <Route path="/user/login" component={ UserLoginPage } />
         <Route path="/category/:cId" component={ CategoryPage } />

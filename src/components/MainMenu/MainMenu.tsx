@@ -1,5 +1,5 @@
-import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStoreAlt } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { HashRouter, Link } from "react-router-dom";
@@ -20,6 +20,7 @@ interface MainMenuProperties {
 interface MainMenuState {
     items: MainMenuItem[];
 }
+
 export class MainMenu extends React.Component<MainMenuProperties> {
     state: MainMenuState;
     constructor(props: MainMenuProperties | Readonly<MainMenuProperties>){
@@ -36,31 +37,35 @@ export class MainMenu extends React.Component<MainMenuProperties> {
             items: items
         })
     }
-    
+
     render() {
         return ( 
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Container>
-            <Navbar.Brand href="/"> <FontAwesomeIcon icon={ faTruckLoading } /> Aplikacija</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="me-auto">
-                <HashRouter>
-                {this.state.items.map(this.makeNavLink)}
-                </HashRouter>
-                </Nav>
-            </Navbar.Collapse>
-            </Container>
+            <Navbar 
+            bg="dark" 
+            variant="dark" 
+            sticky="top" 
+            expand="lg" 
+            collapseOnSelect={false}>
+                <Container>
+                    <Navbar.Brand href="/"> <FontAwesomeIcon icon = { faStoreAlt } /> Aplikacija</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                            <Navbar.Collapse id="basic-navbar-nav">
+                                <Nav className='ml-auto'>
+                                    <HashRouter>
+                                    {this.state.items.map(this.makeNavLink)}
+                                    </HashRouter>
+                                </Nav>
+                            </Navbar.Collapse>
+                </Container>
             </Navbar>
         );
-    }
+    }   
     /* a može i ova varijanta */
     private makeNavLink(item: MainMenuItem){
         return(
-            <Link to={ item.link } className="nav-link">
-                { item.text }
-            </Link>
-        );
+            <Link to={ item.link } 
+            className="nav-link" >{ item.text }</Link>
+        ); 
     }
 }
 

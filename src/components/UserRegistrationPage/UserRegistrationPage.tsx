@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Col, Card, Form, Button, Alert, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight, faCheck, faExclamationTriangle, faLaughBeam, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faCheck, faLaughBeam, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api';
 
@@ -131,6 +131,7 @@ export class UserRegistrationPage extends React.Component {
                         <Button variant="primary"
                                 style={{marginTop:15}}
                                 onClick={ () => this.doRegister() }>
+                                    <i className="bi bi-plus-circle" style={{marginRight:4}}></i> 
                             Register
                         </Button>
                     </Form.Group>
@@ -138,7 +139,7 @@ export class UserRegistrationPage extends React.Component {
             <Alert variant="danger"
                     style={{marginTop:15}}
                     className={ this.state.message? '' : 'd-none' }>
-                <FontAwesomeIcon icon={ faExclamationTriangle } />  { this.state.message }
+                <i className="bi bi-exclamation-circle-fill"></i>  { this.state.message }
             </Alert>
             
             </>

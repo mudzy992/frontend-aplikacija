@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Card, Form, Button, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiagnoses, faExclamationTriangle, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { Container, Card, Form, Button, Col, Alert } from 'react-bootstrap';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import api, { ApiResponse, saveToken, saveRefreshToken } from '../../API/api'
 import { Redirect } from 'react-router-dom';
 import './UserLoginPage.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 interface UserLoginPageState {
     email: string;
@@ -102,7 +103,7 @@ export default class UserLoginPage extends React.Component {
                 <Card>
                     <Card.Body>
                         <Card.Title>
-                            <FontAwesomeIcon icon={ faSignInAlt } /> User Login
+                        <FontAwesomeIcon icon= { faSignInAlt } /> User Login
                         </Card.Title>
                         <Form>
                             <Form.Group>
@@ -121,6 +122,7 @@ export default class UserLoginPage extends React.Component {
                                 <Button variant="primary"
                                         style={{marginTop:15}}
                                         onClick={ () => this.doLogin() }>
+                                          <i className="bi bi-check2-circle" style={{marginRight:4}}/>
                                     Log in
                                 </Button>
                             </Form.Group>
@@ -128,7 +130,7 @@ export default class UserLoginPage extends React.Component {
                         <Alert variant="danger"
                                style={{marginTop:15}}
                                className={ this.state.errorMessage ? '' : 'd-none' }>
-                           <FontAwesomeIcon icon={ faExclamationTriangle } />  { this.state.errorMessage }
+                            <i className="bi bi-exclamation-circle-fill"></i> { this.state.errorMessage }
                         </Alert>
                     </Card.Body>
                 </Card>

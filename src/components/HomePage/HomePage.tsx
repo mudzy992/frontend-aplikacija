@@ -52,7 +52,7 @@ class HomePage extends React.Component {
   private getCategories(){
     /* ova funkcija koristi našu funkciju api koju smo već ranije definisali što ona treba da sadrži
     tj. ona zahtjeva path, metod, tijelo */
-    api('api/category/', 'get', {})
+    api('api/category/?filter=parentCategoryId||$isnull', 'get', {})
     /* Nakon toga možemo da hvatamo error-e */
     .then((res: ApiResponse) => {
       if(res.status === "error" || res.status === "login"){
@@ -76,7 +76,6 @@ class HomePage extends React.Component {
          categoryId: category.categoryId,
          name: category.name,
          image: category.imagePath,
-         items: [],
        }
     })
     /* Nakon što smo napravili listu kategorija, treba da je setujem u state.

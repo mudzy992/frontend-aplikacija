@@ -1,5 +1,3 @@
-import ArticleType from "./ArticleType";
-
 export default class CategoryType {
     /* ovdje definišemo tipove (tj. podatke), koji su nam neuphodni
     za frontend iz backend-a. Podaci koje želimo prikazati na frontend-u */
@@ -9,5 +7,4 @@ export default class CategoryType {
     categoryId?: number;
     name?: string;
     image?:string;
-    items?: ArticleType[]
 }

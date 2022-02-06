@@ -42,10 +42,10 @@ class HomePage extends React.Component {
   componentDidMount(){
     this.getCategories();
   }
-  /* ili kada je refrešovana stranica */
-  componentDidUpdate(){
+  /* ili kada je refrešovana stranica ovo je zakomentarisano, stvara dosta zahtjeva*/
+/*   componentDidUpdate(){
     this.getCategories();
-  }
+  } */
   /* Nakon što sam definisao izgled dopremanja podataka, pravim metod za 
   preuzimanje iz baze/backend, i ta funkcija treba da bude pozvana u state */
   private getCategories(){
@@ -104,12 +104,12 @@ class HomePage extends React.Component {
     return (
         <Container>
             <Card className="text-white bg-dark">
+            <Card.Body>
                 <Card.Header>
                     <Card.Title>
                         <FontAwesomeIcon icon={faListAlt}/> Top level categories
                     </Card.Title>
                 </Card.Header>
-                <Card.Body>
                   <Row>
                         {/* Ako je korisnik ulogovan, prikazati spisak kategorija 
                         to smo uradili tako što smo mapirali jednu funkciju ispod*/}

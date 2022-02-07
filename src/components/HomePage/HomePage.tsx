@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CategoryType from '../../types/CategoryType';
 import { Link, Redirect } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api'
-import { ApiConfig } from '../../config/api.config';
 
 
 /* Pravimo state onoga što zahtjevamo od našeg backend-a */
@@ -136,7 +135,7 @@ class HomePage extends React.Component {
             </Card.Body>
             <Card.Footer>
              <small><Link to={`/category/${category.categoryId}`}
-              /* className='btn btn-primary btn-block btn-sm' */>Prikaži kategoriju</Link></small> 
+              className='btn btn-primary btn-block btn-sm'>Prikaži kategoriju</Link></small> 
           </Card.Footer>
         </Card>
       </Col>

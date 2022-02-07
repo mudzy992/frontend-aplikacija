@@ -1,7 +1,7 @@
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
+import { Alert, Card, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api';
 import { ApiConfig } from '../../config/api.config';
@@ -153,7 +153,7 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
                         </Card.Body>
                     <Card.Footer>
                         <small><Link to={`/category/${category.categoryId}`}
-                        /* className='btn btn-primary btn-block btn-sm' */>Prikaži kategoriju</Link></small> 
+                        className='btn btn-primary btn-block btn-sm'>Prikaži kategoriju</Link></small> 
                     </Card.Footer>
                 </Card>
             </Col>
@@ -178,23 +178,19 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
             /* Ono kako želimo da prikažemo kategoriju (dizajn) */
             <Col lg="4" md="6" sm="6" xs="12">
                 <Card className="text-dark bg-light mb-3">
-                    <Card.Header>   
-                        <Card.Title>
-                            {article.name}
-                        </Card.Title>
-                    </Card.Header>
+                    <Card.Img variant="top" src={ApiConfig.PHOTO_PATH + 'small/' + article.imageUrl} className="w-100"/>
                         <Card.Body>
-                        <Card.Img variant="top" src={ApiConfig.PHOTO_PATH + 'small/' + article.imageUrl} />
-                        <Card.Text>
-                            {article.excerpt}
-                        </Card.Text>
-                        <Card.Text>
-                            Price: {Number(article.price).toFixed(2)} EUR
-                        </Card.Text>
+                            <Card.Title>
+                                {article.name}
+                            </Card.Title>
+                            <ListGroup className="list-group-flush">
+                                <ListGroupItem> <strong>Excerpt:</strong> {article.excerpt}</ListGroupItem>
+                                <ListGroupItem> <strong>Price:</strong> {Number(article.price).toFixed(2)} EUR</ListGroupItem>
+                            </ListGroup>
                         </Card.Body>
                     <Card.Footer>
                         <small><Link to={`/article/${article.articleId}`}
-                        /* className='btn btn-primary btn-block btn-sm' */>Prikaži kategoriju</Link></small> 
+                        className='btn btn-primary btn-block btn-sm' >Prikaži kategoriju</Link></small> 
                     </Card.Footer>  
                 </Card>
             </Col>

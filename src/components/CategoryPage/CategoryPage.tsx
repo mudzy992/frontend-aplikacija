@@ -1,7 +1,10 @@
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import React from 'react';
-import { Alert, Card, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Card, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api';
 import { ApiConfig } from '../../config/api.config';
@@ -118,10 +121,10 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
             return;
         }
         return (
-            <Alert variant="danger"
+            <Alert severity="error"
                     style={{marginTop:15}}
                     className={ this.state.message ? '' : 'd-none' }>
-                    <i className="bi bi-exclamation-circle-fill"></i> { this.state.message }
+                    {/* <i className="bi bi-exclamation-circle-fill"></i>  */}{ this.state.message }
             </Alert>
         )
     } 
@@ -189,8 +192,7 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
                             </ListGroup>
                         </Card.Body>
                     <Card.Footer>
-                        <small><Link to={`/article/${article.articleId}`}
-                        className='btn btn-primary btn-block btn-sm' >Prikaži kategoriju</Link></small> 
+                        <Button href={`/article/${article.articleId}`} variant="outlined" startIcon={<ReadMoreIcon />}> Više detalja</Button>
                     </Card.Footer>  
                 </Card>
             </Col>

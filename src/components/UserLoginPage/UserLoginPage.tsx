@@ -1,11 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Container, Card, Form, Button, Col, Alert } from 'react-bootstrap';
+import { Container, Card, Form, Button, Col } from 'react-bootstrap';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import api, { ApiResponse, saveToken, saveRefreshToken } from '../../API/api'
 import { Redirect } from 'react-router-dom';
 import './UserLoginPage.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Alert from '@mui/material/Alert';
 
 interface UserLoginPageState {
     email: string;
@@ -127,10 +128,10 @@ export default class UserLoginPage extends React.Component {
                                 </Button>
                             </Form.Group>
                         </Form>
-                        <Alert variant="danger"
+                        <Alert severity="error"
                                style={{marginTop:15}}
                                className={ this.state.errorMessage ? '' : 'd-none' }>
-                            <i className="bi bi-exclamation-circle-fill"></i> { this.state.errorMessage }
+                            {/* <i className="bi bi-exclamation-circle-fill"></i> */} { this.state.errorMessage }
                         </Alert>
                     </Card.Body>
                 </Card>

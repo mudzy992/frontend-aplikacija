@@ -1,9 +1,11 @@
 import React from 'react';
-import { Container, Col, Card, Form, Button, Alert, Row } from 'react-bootstrap';
+import { Container, Col, Card, Form, Button, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faCheck, faLaughBeam, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api';
+import Alert from '@mui/material/Alert';
+import { AlertTitle } from '@mui/material';
 
 interface UserRegistrationPageState {
     formData:{
@@ -136,10 +138,10 @@ export class UserRegistrationPage extends React.Component {
                         </Button>
                     </Form.Group>
                 </Form>
-            <Alert variant="danger"
+            <Alert severity="error"
                     style={{marginTop:15}}
                     className={ this.state.message? '' : 'd-none' }>
-                <i className="bi bi-exclamation-circle-fill"></i>  { this.state.message }
+                {/* <i className="bi bi-exclamation-circle-fill"></i> */}  { this.state.message }
             </Alert>
             
             </>
@@ -149,8 +151,8 @@ export class UserRegistrationPage extends React.Component {
     private renderRegistrationCompleteMessage(){
         return (
             <>
-            <Alert variant="success"> 
-            <Alert.Heading> <FontAwesomeIcon icon={ faLaughBeam } /> Bravo</Alert.Heading>
+            <Alert severity="success"> 
+            <AlertTitle> <FontAwesomeIcon icon={ faLaughBeam } /> Bravo</AlertTitle>
                 <p>
                     <FontAwesomeIcon icon={ faCheck } /> The account has been registered. <br />
                     <FontAwesomeIcon icon={ faAngleRight } /> <Link to='/user/login' className='alert-link'>Click here </Link> to go to the login page.

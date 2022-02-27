@@ -1,10 +1,9 @@
-import { faListAlt } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import React from 'react';
-import { Card, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import api, { ApiResponse } from '../../API/api';
 import { ApiConfig } from '../../config/api.config';
@@ -26,6 +25,12 @@ interface CategoryPageState {
     articles?: ArticleType[];
     isUserLoggedIn: boolean;
     message: string;
+    filters: {
+        keywords: string;
+        priceMinimum: number;
+        priceMaximum: number;
+        order: 'name asc' | 'name desc' | 'price asc' | 'price desc';
+    }
 }
 
 interface CategoryDto {
@@ -54,6 +59,12 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
         this.state = {
             isUserLoggedIn: true,
             message: "",
+            filters: {
+                keywords: '',
+                priceMinimum: 0.01,
+                priceMaximum: 100000,
+                order: "price asc"
+            }
         }
     }
 
@@ -104,15 +115,114 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
                     </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        { this.printErrorMessage () }
-                        { this.showSubcategories() }
-                        { this.showArticles() }
-
+                        
+                        <Row>
+                            <Col xs="12" md="4" lg="3">
+                                {this.printFilters()}
+                            </Col>
+                            <Col xs="12" md="8" lg="9">
+                                { this.printErrorMessage () }
+                                { this.showSubcategories() }
+                                { this.showArticles() }
+                            </Col>
+                        </Row>
                     </Card.Text>
                 </Card.Body>
                 
                 </Card>
             </Container>
+            </>
+        )
+    }
+
+    private setNewFilter(newFilter:any) {
+        this.setState(Object.assign(this.state, {
+            filter: newFilter,
+        }))
+    }
+
+    private filterKeywordsChanged(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            keywords: event.target.value,
+        }))
+    }
+
+    private filterPriceMinChanged(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            priceMinimum: Number(event.target.value),
+        }))
+    }
+
+    private filterPriceMaxChanged(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            priceMaximum: Number(event.target.value),
+        }))
+    }
+
+    private filterOrderChanged(event: React.ChangeEvent<HTMLSelectElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            order: event.target.value,
+        }))
+    }
+
+    private applyFilters() {
+        this.getCategoryData()
+    }
+
+    private printFilters(){
+        return(
+            <>
+                <Form.Group>
+                    <Form.Label htmlFor="keywords">Search keywords:</Form.Label>
+                    <Form.Control 
+                    type="text" 
+                    id="keywords" 
+                    value={this.state.filters.keywords}
+                    onChange={(e) => this.filterKeywordsChanged(e as any)}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Row>
+                        <Col xs="12" sm="6">
+                        <Form.Label htmlFor='priceMin'>Price min.:</Form.Label>
+                            <Form.Control 
+                            type='number'
+                            id="priceMin"
+                            step="0.01" min = "0.01" max="99999.99"
+                            value={this.state.filters.priceMinimum}
+                            onChange={(e) => this.filterPriceMinChanged(e as any)}
+                            />
+                        </Col>
+                        <Col xs="12" sm="6">
+                        <Form.Label htmlFor="priceMax">Price max.:</Form.Label>
+                            <Form.Control 
+                            type="number"
+                            id="priceMax"
+                            step="0.01" min = "0.02" max="100000"
+                            value={this.state.filters.priceMaximum}
+                            onChange={(e) => this.filterPriceMaxChanged(e as any)}
+                            />
+                        </Col>
+                    </Row>
+                </Form.Group>
+                <Form.Group style={{marginTop:5}}>
+                    <Form.Control 
+                    as='select' 
+                    id="sordOrder" 
+                    value={this.state.filters.order}
+                    onChange={(e) => this.filterOrderChanged(e as any)}>
+                        <option value="name asc">Sort by name - ascending</option>
+                        <option value="name desc">Sort by name - descending</option>
+                        <option value="price asc">Sort by price - ascending</option>
+                        <option value="price desc">Sort by price - descending</option>
+                    </Form.Control>
+                </Form.Group>
+
+                <Form.Group className="d-grid gap-2" style={{marginTop:5}}>
+                    <Button className="btn btn-primary" onClick={() => this.applyFilters()}>
+                        <FontAwesomeIcon icon={faSearch} /> Search
+                    </Button>
+                </Form.Group>
             </>
         )
     }
@@ -180,7 +290,7 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
         return(
             /* Ono kako želimo da prikažemo kategoriju (dizajn) */
             <Col lg="4" md="6" sm="6" xs="12">
-                <Card className="text-dark bg-light mb-3">
+                <Card className="text-dark bg-light mb-3 d-grid gap-2">
                     <Card.Img variant="top" src={ApiConfig.PHOTO_PATH + 'small/' + article.imageUrl} className="w-100"/>
                         <Card.Body>
                             <Card.Title>
@@ -191,8 +301,8 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
                                 <ListGroupItem> <strong>Price:</strong> {Number(article.price).toFixed(2)} EUR</ListGroupItem>
                             </ListGroup>
                         </Card.Body>
-                    <Card.Footer>
-                        <Button href={`/article/${article.articleId}`} variant="outlined" startIcon={<ReadMoreIcon />}> Više detalja</Button>
+                    <Card.Footer className="d-grid gap-2">
+                        <Button className="btn btn-primary" href={`/article/${article.articleId}`}> Više detalja</Button>
                     </Card.Footer>  
                 </Card>
             </Col>
@@ -240,14 +350,17 @@ export default class CategoryPage extends React.Component<CategoryPageProperties
             this.setSubcategories(subcategories);
         })
 
+        const orderParts = this.state.filters.order.split(' ')
+        const orderBy = orderParts[0];
+        const orderdDirection = orderParts[1].toUpperCase();
         api('api/article/search/', 'post', {
             categoryId : Number(this.props.match.params.cId),
-            keywords: "",
-            priceMin: 0.01,
-            priceMax: Number.MAX_SAFE_INTEGER,
+            keywords: this.state.filters.keywords,
+            priceMin: this.state.filters.priceMinimum,
+            priceMax: this.state.filters.priceMaximum,
             features: [],
-            orderBy: "price",
-            orderDirection: "ASC",
+            orderBy: orderBy,
+            orderDirection: orderdDirection,
         })
         .then((res: ApiResponse) => {
             if (res.status === "login") {

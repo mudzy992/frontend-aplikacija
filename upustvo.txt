@@ -4,7 +4,7 @@ npm i create-react-app -g
 
 nakon toga otvoriti folder gdje želimo smjestiti react frontend aplikaciju
 
-create-react naziv-aplikacije(ujedno i foldera) --template (pa neki template) typescript
+create-react-app naziv-aplikacije(ujedno i foldera) --template (pa neki template) typescript
 
 nakon instalacije odnosno kreiranja aplikacije, uraditi malo reorganizaciju foldera i fajlova,
 te instalirati bootstrap
